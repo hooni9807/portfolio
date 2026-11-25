@@ -16,6 +16,12 @@ colors:
   alert-tint: "#F8E4E1"
   device-frame: "#1B2440"
   status-on: "#3FBF7F"
+  mock-wit-paper: "#F6F5EF"
+  mock-wit-ink: "#123127"
+  mock-wit-button: "#1F5240"
+  mock-wit-soft: "#DDE6DF"
+  mock-can: "#1D1D1D"
+  mock-skin: "#E8B89A"
 typography:
   display:
     fontFamily: "Pretendard Variable, Pretendard, Apple SD Gothic Neo, Malgun Gothic, sans-serif"
@@ -40,6 +46,26 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.75
+  lead:
+    fontFamily: "Pretendard Variable, Pretendard, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 400
+    lineHeight: 1.75
+  body-small:
+    fontFamily: "Pretendard Variable, Pretendard, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 400
+    lineHeight: 1.65
+  caption:
+    fontFamily: "Pretendard Variable, Pretendard, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.55
+  mock-text:
+    fontFamily: "Pretendard Variable, Pretendard, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 400
+    lineHeight: 1.6
   label:
     fontFamily: "Pretendard Variable, Pretendard, sans-serif"
     fontSize: "0.8125rem"
@@ -54,6 +80,10 @@ rounded:
   panel: "4px"
   card: "6px"
   pill: "999px"
+  mock-button: "8px"
+  mock-screen: "10px"
+  mock-shape: "14px"
+  mock-device: "22px"
 spacing:
   gutter: "1.5rem"
   container: "72rem"
@@ -119,12 +149,13 @@ components:
 - **line `#C9CDDC`**: 1px 구분선과 카드 테두리.
 - 보조 면: table-head `#E3E6F0`, panel `#F3F4F8`(로그·흐름도 칸), indigo-tint `#ECEBFA`(AI 피드백 칸).
 - 경고: alert `#B4352B` 글자, alert-tint `#F8E4E1` 배경. FAIL, 노출, 지운 글자에만 쓴다.
-- 기기 틀 `#1B2440`: 휴대폰 영상·예시 화면의 테두리. 직접 그린 What Is This 화면처럼 실제 앱 색을 흉내 내는 예시는 그 앱의 색을 따로 쓴다.
+- 기기 틀 `#1B2440`: 휴대폰 영상·예시 화면의 테두리.
+- `mock-*` 색: 직접 그린 What Is This 화면은 실제 앱의 녹색 계열(`mock-wit-*`)과 캔·손가락 색을 따로 쓴다. 예시 화면 안에서만 쓰고 페이지 다른 곳에는 쓰지 않는다.
 
 ## Typography
 
 - 글꼴은 **Pretendard Variable** 하나(jsDelivr). 한글은 `word-break: keep-all`로 단어 단위 줄바꿈, 너무 긴 묶음은 `overflow-wrap: anywhere`로 넘치지 않게 한다.
-- 크기 단계: display(히어로) → headline(섹션 제목) → title(프로젝트 제목) → body 1rem/1.75 → label 0.8125rem. 제목은 모두 800 굵기, 글자 간격은 -0.01~-0.02em.
+- 크기 단계: display(히어로) → headline(섹션 제목) → title(프로젝트 제목) → lead 1.125rem(히어로 소개) → body 1rem/1.75 → body-small 0.9375rem(스킬 파일 카드) → caption 0.875rem(표 보조 글, 기관) → label 0.8125rem → mock-text 0.75rem(직접 그린 예시 안). 제목은 모두 800 굵기, 글자 간격은 -0.01~-0.02em.
 - 날짜와 기간은 `font-variant-numeric: tabular-nums`로 자릿수를 맞춘다.
 - 고정폭 글꼴은 코드, 명령, 로그, 파일 이름에만 쓴다.
 - 본문 한 줄 길이는 40rem 이하.
@@ -143,10 +174,14 @@ components:
 
 ## Shapes
 
+- 직접 그린 예시 안: 버튼 8px, 화면 10px, 점선 도형 14px, 휴대폰 틀 22px.
 - 2px: 진행·결과 막대. 3px: 배지, 태그. 4px: 패널 안 칸. 6px: 카드, 스크린샷, 버튼. 999px: 기술 칩과 전후 비교 토글처럼 작은 조작 요소만.
 - 휴대폰 예시는 실제 기기처럼 큰 둥근 모서리와 두꺼운 device-frame 테두리를 쓴다.
 
 ## Components
+
+- **주제 표시:** 프로젝트 왼쪽 칸과 프로젝트 바로가기에서 읽어 주기는 형광펜 밑칠(`t-read`), 가리기는 검은 테이프(`t-hide`).
+- **프로젝트 바로가기:** 프로젝트 목록 위 흰 카드. 읽어 주기 / 가리기 / 그 밖의 작업 세 줄로 묶고 이름에 형광펜 밑줄.
 
 - **구분 배지:** 팀 = ink, 개인 = marker, 인턴십 = indigo. 이 세 가지 외에 늘리지 않는다.
 - **활동 이력 표:** 프로젝트 이름(별칭)을 형광펜 밑줄 링크로 크게, 긴 제목은 아래에 muted로. 링크를 누르면 해당 프로젝트로 이동한다.

@@ -30,8 +30,8 @@
 | 기간 | 프로젝트 | 핵심 기술 | 사이트에서 볼 수 있는 것 |
 |---|---|---|---|
 | 2026.10&nbsp;~&nbsp;2026.11 | [Crawling-Document-Data](https://hooni9807.github.io/portfolio/#cdd) · 공공문서 실제 샘플 수집기 | Playwright, pytest | 실제 수집기 화면 |
-| 2026.10&nbsp;~&nbsp;2026.11 | [라벨링 클릭 매크로](https://hooni9807.github.io/portfolio/#macro) · KNN으로 화면을 보정하는 클릭 매크로 | k-NN, OpenCV ORB·RANSAC | KNN 보정 흐름도와 측정 결과 |
-| 2026.09&nbsp;~&nbsp;2026.12 | [문서 비식별 자동 테스트](https://hooni9807.github.io/portfolio/#deid) · 시험 문서 생성과 마스킹 회귀 테스트 | Python, Docker, FastAPI | 마스킹 전후 애니메이션, 웹 콘솔 미리보기 |
+| 2026.10&nbsp;~&nbsp;2026.11 | [Nearest AutoClick](https://hooni9807.github.io/portfolio/#macro) · KNN으로 화면을 보정하는 클릭 매크로 | k-NN, OpenCV ORB·RANSAC | KNN 보정 흐름도와 측정 결과 |
+| 2026.09&nbsp;~&nbsp;2026.12 | [Auto-Test-Program](https://hooni9807.github.io/portfolio/#deid) · 시험 문서 생성과 마스킹 회귀 테스트 | Python, Docker, FastAPI | 마스킹 전후 애니메이션, 웹 콘솔 미리보기 |
 
 ### 그 밖의 프로젝트
 
