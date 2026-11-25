@@ -6,7 +6,6 @@
 
 ### [사이트 열기 → hooni9807.github.io/portfolio](https://hooni9807.github.io/portfolio/)
 
-[![포트폴리오 첫 화면: 형광펜과 검은 막대로 표현한 소개 문장과 활동 이력 표](assets/readme-preview.webp)](https://hooni9807.github.io/portfolio/)
 
 > 2026-11-18 ~ 2026-11-25 · 커밋 11개 · 1인 개발 (Claude Code와 함께)
 
