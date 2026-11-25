@@ -18,7 +18,9 @@
   --display:var(--body);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scrollbar-color:#9AA0B8 var(--paper);accent-color:var(--indigo)}
+::selection{background:var(--marker);color:var(--ink)}
+body{caret-color:var(--indigo)}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.75 var(--body);word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--indigo);outline-offset:3px}
@@ -50,13 +52,14 @@ table{width:100%;border-collapse:collapse;background:var(--card);border-radius:6
 th,td{text-align:left;padding:.9rem 1.1rem;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-weight:700;font-size:.875rem;color:var(--muted);background:#E3E6F0}
 tr:last-child td{border-bottom:0}
-td:first-child{font:500 .95rem var(--display);white-space:nowrap}
+td:first-child{font:500 .95rem var(--display);white-space:nowrap;font-variant-numeric:tabular-nums}
+.sub{display:block;margin-top:.15rem;font-size:.875rem;color:var(--muted);line-height:1.55}
 td a{font-weight:700;text-decoration-color:var(--marker);text-decoration-thickness:.35em;text-underline-offset:-.12em;text-decoration-skip-ink:none}
 td a:hover{text-decoration-color:var(--indigo);color:var(--indigo)}
 
 /* 프로젝트 */
 .project{display:grid;grid-template-columns:11rem 1fr;gap:2rem;padding-block:3rem;border-top:2px solid var(--ink);scroll-margin-top:1rem}
-.when{font:700 1.05rem/1.5 var(--display)}
+.when{font:700 1.05rem/1.5 var(--display);font-variant-numeric:tabular-nums}
 .when small{display:block;margin-top:.6rem;font:400 .875rem/1.5 var(--body);color:var(--muted)}
 .kind{display:inline-block;margin-top:.6rem;padding:.1rem .6rem;font:700 .8125rem/1.7 var(--body);border-radius:3px;background:var(--ink);color:var(--paper)}
 .kind.solo{background:var(--marker);color:var(--ink)}
@@ -72,7 +75,7 @@ td a:hover{text-decoration-color:var(--indigo);color:var(--indigo)}
 .chips{display:flex;flex-wrap:wrap;gap:.4rem;padding:0!important;list-style:none}
 .chips li{margin:0;padding:.1rem .65rem;background:var(--card);border:1px solid var(--line);border-radius:999px;font-size:.875rem}
 .files{display:grid;gap:.6rem;max-width:40rem;margin-top:.9rem}
-.files>div{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--indigo);border-radius:4px;padding:.7rem .9rem;font-size:.9375rem}
+.files>div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.7rem .9rem;font-size:.9375rem}
 .files code{font:700 .875rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--indigo)}
 .files p{display:grid;grid-template-columns:3.2em 1fr;margin:.3rem 0 0;line-height:1.65}
 .files b{font-size:.8125rem;color:var(--muted)}
@@ -146,6 +149,7 @@ figcaption{margin-top:.6rem;font-size:.8125rem;color:var(--muted)}
 .c-bar b{width:0;transition:width .9s cubic-bezier(.6,0,.2,1)}
 .c-bar .p{background:var(--indigo)} .c-bar .w{background:var(--marker)} .c-bar .f{background:#B4352B}
 .c-num{margin:.35rem 0 0;min-height:1.6em;font-size:.6875rem;color:var(--muted)}
+@media (min-width:72rem){.body:has(.wide-video){grid-template-columns:1fr 24rem}}
 .wide-video{display:block;width:100%;height:auto;border-radius:6px;background:#1B2440}
 /* 직접 그린 흐름도·편집기·휴대폰 화면 예시 */
 .flow{list-style:none;margin:.4rem 0 0;padding:0!important;counter-reset:f}
@@ -158,7 +162,7 @@ figcaption{margin-top:.6rem;font-size:.8125rem;color:var(--muted)}
 .cmp i.aft{background:var(--indigo)}
 .mock del{color:#B4352B;text-decoration-thickness:1.5px}
 .mock ins{color:var(--indigo);text-decoration:underline;text-underline-offset:.2em}
-.coach{margin:.3rem 0 0;padding:.4rem .6rem;border-left:3px solid var(--indigo);background:#F3F4F8;border-radius:0 4px 4px 0}
+.coach{margin:.3rem 0 0;padding:.45rem .65rem;background:#ECEBFA;color:var(--ink);border-radius:4px}
 .wit{max-width:15rem;margin:0 auto;padding:.9rem;background:#F6F5EF;border-radius:22px;border:6px solid #1B2440;font-size:.75rem}
 .wit h5{margin:0;font:800 1.15rem/1.2 var(--body);color:#123127}
 .wit .cam{position:relative;height:9rem;margin:.6rem 0;border-radius:10px;background:#123127;overflow:hidden}
@@ -251,9 +255,8 @@ dialog button{font:700 .9rem var(--body);padding:.35rem 1rem;border:0;border-rad
 
 <footer class="wrap">김세훈 포트폴리오 · 2026</footer>
 
-<dialog id="viewer" aria-label="프로젝트 시트 크게 보기">
+<dialog id="viewer" aria-label="이미지 크게 보기">
   <form method="dialog"><button>닫기</button></form>
-  <img alt="">
 </dialog>
 
 <script>
@@ -576,10 +579,12 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const video = v => `<p class="now" aria-hidden="true">${v.steps[0][1]}</p><video class="${v.cls||'phone-video'}" src="${v.src}" poster="${v.poster}" width="${v.w}" height="${v.h}" muted loop playsinline controls preload="metadata" ${reduceMotion?'':'autoplay'} aria-label="${v.alt}"></video><figcaption>${v.cap}</figcaption>`;
 const shot = s => `<button class="sheet" data-src="${s.src}" aria-label="${s.cap.split(' · ')[0]} 크게 보기"><img src="${s.src}" width="${s.w}" height="${s.h}" alt="${s.alt}" loading="lazy"></button><figcaption>${s.cap}</figcaption>`;
 
-document.getElementById('rows').innerHTML = projects.map(p=>
- `<tr><td>${p.when}</td><td><a href="#${p.id}">${p.title}</a></td><td>${p.kind}</td><td>${p.org}</td></tr>`).join('');
+// 최신 작업이 먼저 보이도록 시간 역순으로 보여 준다(데이터는 시간순으로 관리)
+const shown = [...projects].reverse();
+document.getElementById('rows').innerHTML = shown.map(p=>
+ `<tr><td>${p.when}</td><td><a href="#${p.id}">${p.alias}</a><span class="sub">${p.title}</span></td><td>${p.kind}</td><td>${p.org}</td></tr>`).join('');
 
-document.getElementById('list').innerHTML = projects.map(p=>`
+document.getElementById('list').innerHTML = shown.map(p=>`
 <article class="project" id="${p.id}">
   <div class="when">${p.when}<br><span class="kind ${kindClass[p.kind]||''}">${p.kind}</span><small>${p.org}</small></div>
   <div class="body">
@@ -651,7 +656,7 @@ document.getElementById('list').addEventListener('click', e=>{
   const t = e.target.closest('.seg button');
   if(t){ clearInterval(autoFlip); setDeid(t.closest('.deid'), t.dataset.state); return; }
   const b = e.target.closest('.sheet'); if(!b) return;
-  const img = viewer.querySelector('img');
+  const img = viewer.querySelector('img') || viewer.appendChild(document.createElement('img'));
   img.src = b.dataset.src; img.alt = b.querySelector('img').alt;
   viewer.showModal();
 });
