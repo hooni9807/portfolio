@@ -167,6 +167,10 @@ figcaption{margin-top:.6rem;font-size:.8125rem;color:var(--muted)}
 .wit .tip{position:absolute;left:47%;top:72%;width:.8rem;height:2.6rem;border-radius:.4rem .4rem 0 0;background:#E8B89A}
 .wit .spoken{margin:0;font-weight:700;color:#123127}
 .wit .btn{margin-top:.45rem;padding:.35rem;border-radius:8px;background:#1F5240;color:#fff;text-align:center;font-weight:700}
+.try{display:block;max-width:15rem;margin:1rem auto 0;padding:.6rem 1rem;border-radius:6px;background:var(--ink);color:var(--paper);font-weight:700;text-align:center;text-decoration:none}
+.try:hover{background:var(--indigo)}
+.try-note{max-width:15rem;margin:.4rem auto 0;font-size:.8125rem;color:var(--muted);text-align:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .phone-video{display:block;width:100%;max-width:15rem;height:auto;margin:0 auto;border-radius:10.9%/5.4%;background:#1B2440}
 
 /* 기술 */
@@ -525,6 +529,7 @@ const projects = [
   tech:['Gemma 4','Ollama','MediaPipe','Apple Vision','Swift','JavaScript','Web Speech API','Cloudflare Workers','Workers AI','Bun']},
  {id:'whatisthis', when:'2026.11', kind:'개인 프로젝트', org:'우송대학교',
   title:'MediaPipe·PaddleOCR·DINOv2로 손끝이 가리킨 음료를 읽어 주는 모바일 웹 개발', alias:'What Is This?', mock:witMock, cap:'화면을 단순화해 다시 그린 예시',
+  link:{href:'https://what-is-this-drinks.dchkimppi.workers.dev', label:'직접 써 보기', note:'휴대폰에서 열면 바로 써 볼 수 있습니다 · 비밀번호가 필요합니다'},
   lead:'편의점 냉장고 앞에서 검지로 음료 하나를 가리키면 제품명과 일반·제로 여부를 한국어 음성으로 알려 주는 모바일 웹입니다. 작은 글씨를 읽기 어려운 시각장애인을 위해 만들었고, 카메라 영상은 모두 휴대폰 브라우저 안에서 분석합니다.',
   role:'1인 개발 (기획, 상품 자료 수집, 화면, 모델 연동, 테스트, 배포)', env:'모바일 브라우저(후면 카메라), Cloudflare Workers, Node.js 22', lang:'JavaScript, Python, Shell',
   did:['MediaPipe 손 인식으로 검지가 펴졌는지와 손끝 방향을 계산해, 같은 화면에서 손끝 바로 위 라벨만 고르도록 구현',
@@ -545,7 +550,7 @@ const projects = [
      '같은 브랜드의 일반·제로 포장은 색과 무늬가 비슷해 이미지 점수가 붙음. 점수 차이 기준을 두고, 사진 기반 추정이라는 점을 안내 문구에 밝힘',
      '같은 바코드의 맛이 출처마다 달라 조회 대상에서 빼고 검토 메모를 남김']}],
   tech:['MediaPipe','PaddleOCR','DINOv2','ONNX Runtime Web','ZXing','Web Speech API','Cloudflare Workers','Playwright']},
- {id:'cdd', when:'2026.11', kind:'개인 프로젝트', org:'우송대학교',
+ {id:'cdd', when:'2026.11', kind:'인턴십', org:'지란지교 1연구소 AI연구팀',
   title:'공공데이터포털 실제 문서 샘플 수집기 개발', alias:'Crawling-Document-Data (CDD)',
   shot:{src:'assets/cdd-webui.webp', w:1280, h:1240, cap:'실제 수집기 화면 · 누르면 크게 볼 수 있습니다',
     alt:'CDD 웹 화면. 왼쪽에서 받을 형식과 모을 개수를 고르고, 오른쪽에 모은 공공문서 목록이 제공기관·출처·크기와 함께 나옴'},
@@ -589,7 +594,7 @@ document.getElementById('list').innerHTML = projects.map(p=>`
     </div>
     <figure>${p.sheet
       ? `<button class="sheet" data-src="assets/sheet-${p.sheet}.webp" aria-label="${p.alias} 프로젝트 시트 크게 보기"><img src="assets/sheet-${p.sheet}.webp" width="964" height="1374" alt="${p.alias} 실행 화면과 개발 내용을 정리한 프로젝트 시트" loading="lazy"></button><figcaption>누르면 실행 화면을 크게 볼 수 있습니다</figcaption>`
-      : `${p.video?video(p.video):''}${p.shot?`<div class="${p.video?'fig-gap':''}">${shot(p.shot)}</div>`:''}${p.mock?`${p.mock}<figcaption>${p.cap}</figcaption>`:''}${p.after||''}`}</figure>
+      : `${p.video?video(p.video):''}${p.shot?`<div class="${p.video?'fig-gap':''}">${shot(p.shot)}</div>`:''}${p.mock?`${p.mock}<figcaption>${p.cap}</figcaption>`:''}${p.after||''}${p.link?`<a class="try" href="${p.link.href}" target="_blank" rel="noopener">${p.link.label}<span class="sr"> (새 창)</span></a><p class="try-note">${p.link.note}</p>`:''}`}</figure>
   </div>
 </article>`).join('');
 
