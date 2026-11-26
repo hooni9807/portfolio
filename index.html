@@ -387,6 +387,7 @@ const projects = [
        '기본 3단계 이후 암호·대용량(1·2안), 구형·레거시 형식(3안), 손상 PDF·RTF(4안), 비정상 OOXML·기타 형식(5안)까지 다섯 차례 추가 확장',
        '실행 전후 결과를 비교하는 회귀 리포트, FAIL 원인을 추적하는 JSON·CSV 보고서와 브라우저용 웹 콘솔 구성',
        'Docker·Makefile로 생성기·러너를 묶어 다른 PC에서도 같은 환경으로 실행',
+       '비정상 문서를 형식군별 폴더로 나누고 만들지 못한 항목과 그 이유를 보고서에 기록. 생성기·러너·서버 Docker 이미지는 오프라인 .tar로 넘겨 인터넷 없는 PC에서도 같은 환경으로 실행',
        '처음 받는 사람이 설치부터 결과 판독까지 혼자 할 수 있도록 인수인계서(HTML·PDF) 작성'],
   extra:[
    {h:'개발 과정 (날짜별 업무 기록 기준)', items:[
@@ -467,7 +468,7 @@ const projects = [
      'Mac(.command)·Windows(.exe, WSL)용 더블클릭 실행 파일을 만들어 개발자가 아닌 팀원도 바로 사용']}],
   tech:['Python','Docker','Makefile','REST API','OCR','HWP·OOXML·ODF 구조','OLE','LibreOffice','FastAPI','Claude Code 스킬','GitHub']},
  {id:'macro', when:'2026.10 ~ 2026.11', kind:'인턴십', org:'지란지교 1연구소 AI연구팀',
-  title:'k-NN 기반 클릭 위치 보정 라벨링 자동화 도구 개발', alias:'Nearest AutoClick', mock:macroMock, cap:'직접 그린 동작 흐름 · 숫자는 실제 측정값',
+  title:'k-NN 기반 클릭 위치 보정 라벨링 자동화 도구 개발', alias:'Nearest AutoClick (NAC)', mock:macroMock, cap:'직접 그린 동작 흐름 · 숫자는 실제 측정값',
   lead:'문서 사진 라벨링에서 같은 자리를 반복해 누르는 작업을 단축키 한 번으로 줄인 macOS 자동화 도구입니다. 작업자가 고친 사례를 쌓아 두었다가, 재생할 때 지금 화면과 가장 닮은 사례(최근접 이웃)를 골라 그 사례의 정답 클릭을 지금 화면에 맞게 옮겨 누릅니다. 사진이 돌아가거나 밀려 있어도 맞추고, 확신이 없으면 누르지 않습니다. 팀원도 함께 썼습니다.',
   role:'기획, 개발 전체(기록·재생, 화면 인식 보정, k-NN 사례 저장소와 학습, 상자 클릭, 공유, 화면), 실제 라벨링 작업에서 검증', env:'macOS, Claude Code', lang:'Python, JavaScript(HTML 화면·JXA)',
   did:['작업자가 고친 사진을 사례로 쌓고, 재생할 때 지금 화면과 가장 닮은 사례 하나(k=1)를 골라 그 정답 클릭을 옮겨 누르는 k-NN 클릭 보정: 30px 넘게 틀린 클릭 17% → 9%',
@@ -520,6 +521,7 @@ const projects = [
        '내 옷 사진과 쇼핑몰 상품 사진 비교: 색·목 디자인·소매·여밈·주머니·글자·니트 짜임을 따로 읽어 코드가 비교하고, 라벨 품번을 후보 주소·상품명과 대조',
        '카메라로 비춘 옷이 무엇인지, 옷장에서 왼쪽 몇 번째에 있는지 안내. 닮은 옷은 짐작하지 않고 후보를 알린 뒤 꺼내 펼쳐 다시 고름',
        '기상청 단기예보·지금 입은 옷에 맞춘 코디 추천, 두 벌 조합 판단, 주름 확인과 라벨에 맞춘 다림질 단계별 음성 안내',
+       '쇼핑몰 사진 대조에서 넥라인·라벨 코드·상품명 충돌로 닮은 상품을 가리고, 후보 표에서 못 찾으면 후보를 하나씩 다시 확인',
        '같은 앱을 무료 로컬 모델(gemma4:26b) 버전과 GPT API 버전으로 나눠 관리하고, 같은 평가 세트로 gemma4 26b·31b를 비교해 26b 선택'],
   extra:[
    {h:'평가로 고친 것 (공개 옷 사진 CC0와 그린 라벨, gemma4:26b)', items:[
@@ -547,6 +549,7 @@ const projects = [
        '코치 창에서 자소서 리뷰·모의 면접·기술 면접 3가지 모드, 번역체와 AI 상투어를 피하는 한국어 문장 지침 직접 작성',
        'API 키 없이 이미 로그인된 Claude Code(도구 끔)·Codex CLI를 불러 쓰는 연결 서버와 화면 안 로그인',
        '127.0.0.1에서만 열고 허용된 출처의 요청만 처리, 원고는 저장소 밖 파일에 원자적으로 저장(Google Drive 폴더 연결)',
+       'AI 수정안을 자연스러운 말투로 다시 쓰고, 내 원고에서 바뀐 곳을 빨간색으로 표시',
        'Node.js 표준 라이브러리만 사용하고 가짜 CLI로 자동 테스트와 CI 구성, Go 실행기로 Node.js를 묶은 Windows 단일 실행 파일을 태그마다 빌드·배포'],
   extra:[
    {h:'비교 방식', items:[
@@ -612,6 +615,7 @@ const projects = [
        '첫 비교에서 보류되면 상품 외곽을 찾아 상품 전체와 가운데 65% 두 영역을 다시 비교하고, 두 영역의 1위가 같을 때만 추가로 판정',
        'Cloudflare Worker로 편의점 공식 상품 목록을 페이지 단위로 가져오는 “목록 업데이트” 버튼. 전체 수집에 성공했을 때만 브라우저 저장본을 바꾸고, 사이트 전체는 비밀번호로 잠근 Worker 뒤에 배포',
        '검토한 바코드 36개를 조회하는 확인 경로와 한국어 음성 안내. 판단이 어려우면 “가까이 가리키기”나 “바코드 비추기”로 다음 행동을 안내',
+       '편의점 목록에서 확인되지 않은 맛 변형은 판정하지 않고, 상품 페이지 캐시로 다시 불러오는 시간을 줄임',
        '상품 출처·라이선스·검토 메모를 CSV로 관리하고, 자동 테스트 26개와 가상 카메라 브라우저 검사로 정답·오답·보류를 함께 기록'],
   extra:[
    {h:'설계 결정과 검증 결과', items:[
@@ -645,7 +649,9 @@ const projects = [
        '같은 사이트 요청은 1.5초 간격, 보안문자는 자동으로 풀지 않고 같은 세션의 브라우저 창에서 사람이 직접 풀도록 설계',
        '31개 형식 선택(포털 데이터 건수 표시, 30건 미만 경고)·진행률·걸린 시간·파일 열기·저장 위치 선택(다음 실행에도 기억)을 갖춘 웹 화면과 10단계 사용법 안내',
        'Mac은 더블클릭 실행, Windows 실행 파일(CDD.exe)은 GitHub Actions로 빌드, 화면 버튼으로 새 버전을 받아 다시 시작',
-       '실패하는 테스트부터 작성(pytest 100개)하고, 로컬 가짜 기관 사이트로 스크립트 다운로드를 재현해 검증. 코드를 처음 보는 별도 AI 리뷰에서 나온 치명 2건·중요 2건 수정'],
+       '공공데이터포털에 더해 부처 보도자료 공식 API(과기정통부·기재부)를 두 번째 출처로 추가해 첨부파일을 수집. 서비스 키는 내 PC 설정 파일에만 저장하고 화면에서는 가리며, 실제 API 한 번 호출로 키를 확인',
+       '왼쪽 패널을 번호 단계·접이식 옵션·항상 보이는 실행 막대로 다시 구성하고, 프로젝트 폴더를 옮겨도 저장 위치가 따라오도록 상대 경로로 기억',
+       '실패하는 테스트부터 작성(pytest 126개)하고, 로컬 가짜 기관 사이트로 스크립트 다운로드를 재현해 검증. 코드를 처음 보는 별도 AI 리뷰에서 나온 치명 2건·중요 2건 수정'],
   extra:[{h:'트러블슈팅', items:[
      '깨진 ZIP 하나에 전체 실행이 멈춤 → 파일 단위로 예외를 격리하고 실패로 기록',
      '영문 Windows 콘솔에서 실행 파일이 한글 출력 중 종료 → 표준 출력을 UTF-8로 재설정',
@@ -658,7 +664,7 @@ const projects = [
      '모을 수 있는 양은 포털에 등록된 데이터셋 수가 상한이라, DOC 8건·PPT 1건처럼 적은 형식은 거의 안 모임(화면에서 미리 경고)',
      '보안문자 화면 흐름은 실제 사이트에서는 시험하지 못하고 가짜 객체로만 검증함',
      'Windows 실행 파일은 서명이 없고, 스스로 새 버전을 받지 못함']}],
-  tech:['Python','Playwright','pytest','PyInstaller','GitHub Actions','HTML·CSS·JS','Claude Code']},
+  tech:['Python','Playwright','pytest','PyInstaller','GitHub Actions','HTML·CSS·JS','Claude Code','공공데이터 API(보도자료)']},
 ];
 
 const kindClass = {'개인 프로젝트':'solo','인턴십':'intern'};
@@ -668,7 +674,8 @@ const video = v => `<p class="now" aria-hidden="true">${v.steps[0][1]}</p><video
 const shot = s => `<button class="sheet" data-src="${s.src}" aria-label="${s.cap.split(' · ')[0]} 크게 보기"><img src="${s.src}" width="${s.w}" height="${s.h}" alt="${s.alt}" loading="lazy"></button><figcaption>${s.cap}</figcaption>`;
 
 // 최신 작업이 먼저 보이도록 시간 역순으로 보여 준다(데이터는 시간순으로 관리)
-const shown = [...projects].reverse();
+// 최신순: 시작 월 → 끝 월 순으로 내림차순, 같으면 나중에 적은 프로젝트 먼저
+const shown = [...projects].reverse().sort((a, b) => b.when.slice(0, 7).localeCompare(a.when.slice(0, 7)) || b.when.slice(-7).localeCompare(a.when.slice(-7)));
 // 히어로 문장의 두 주제로 프로젝트를 묶는다
 const THEME = {whatisthis:'read', sorihansang:'read', closet:'read', pyeonhacu:'read', beautyfriends:'read', cdd:'hide', macro:'hide', deid:'hide'};
 const group = (label, cls, list) => `<div><b>${cls?`<span class="${cls}">${label}</span>`:label}</b><ul>${list.map(p=>`<li><a href="#${p.id}">${p.alias.replace(/ \(.*\)$/,'')}</a></li>`).join('')}</ul></div>`;
