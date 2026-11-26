@@ -12,14 +12,18 @@
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <style>
 :root{
-  --paper:#EEF0F6; --card:#FFFFFF; --ink:#14162B; --muted:#565B78;
-  --indigo:#3A32C8; --marker:#FFD84A; --line:#C9CDDC;
+  /* 인수인계서(ATP 핸드오버) 다크 팔레트 + 이 페이지의 형광펜 */
+  --paper:#111418; --card:#181C21; --panel:#1F242B; --ink:#E6E8EB; --muted:#9AA4AE;
+  --indigo:#7FB0FF; --brand2:#1C2A3D; --accent:#FF8A50; --marker:#FFD84A; --on-marker:#111418; --line:#2B3138;
+  --pass:#5FD38A; --passbg:#163A24; --warnc:#FFC65C; --warnbg:#3A2E12; --fail:#FF7B72; --failbg:#3D1A1A;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
   --body:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --display:var(--body);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scrollbar-color:#9AA0B8 var(--paper);accent-color:var(--indigo)}
-::selection{background:var(--marker);color:var(--ink)}
+html{scroll-behavior:smooth;scrollbar-color:#3A424C var(--paper);accent-color:var(--indigo)}
+::selection{background:var(--marker);color:var(--on-marker)}
 body{caret-color:var(--indigo)}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.75 var(--body);word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
 a{color:inherit}
@@ -31,51 +35,55 @@ a{color:inherit}
 .top strong{font:800 1.125rem var(--display)}
 .top nav{display:flex;gap:1.5rem;font-weight:500}
 .top nav a{text-decoration:none;border-bottom:2px solid transparent}
-.top nav a:hover{border-color:var(--ink)}
+.top nav a:hover{border-color:var(--indigo);color:var(--indigo)}
 
 /* 히어로: 형광펜(읽어 줌)과 마스킹 테이프(가림) */
 .hero{padding-block:clamp(3rem,9vw,7.5rem) clamp(3rem,7vw,6rem)}
 .say{margin:0;font:800 clamp(1.7rem,5.4vw,4.5rem)/1.5 var(--display);letter-spacing:-.02em}
 .say span{padding:.04em .22em;margin-left:-.22em;-webkit-box-decoration-break:clone;box-decoration-break:clone;
   background:linear-gradient(var(--c),var(--c)) no-repeat 0 0/0% 100%;animation:sweep .9s cubic-bezier(.6,0,.2,1) forwards}
-.say .read{--c:var(--marker);animation-delay:.25s}
+.say .read{--c:var(--marker);animation-name:sweep,inkdark;animation-delay:.25s,.55s}
+@keyframes inkdark{to{color:var(--on-marker)}}
 .say .hide{--c:var(--ink);color:var(--paper);animation-delay:1s}
 @keyframes sweep{to{background-size:100% 100%}}
 .hero p{max-width:38rem;margin:2.25rem 0 0;font-size:1.125rem;color:var(--muted)}
+/* 인수인계서 표지의 4색 띠: 읽어 주기·가리기·통과·주의 */
+.bands{display:flex;height:.45rem;max-width:44rem;margin-top:2.75rem;border-radius:999px;overflow:hidden}
+.bands i{flex:var(--f)} .bands i:nth-child(1){background:var(--indigo)} .bands i:nth-child(2){background:var(--accent)} .bands i:nth-child(3){background:var(--pass)} .bands i:nth-child(4){background:var(--marker)}
 .hero p b{color:var(--ink)}
 
 h2{font:800 clamp(1.5rem,2.6vw,2rem)/1.3 var(--display);margin:0 0 1.5rem;letter-spacing:-.01em}
 section{padding-block:clamp(2.5rem,6vw,4.5rem)}
 
 /* 활동 이력 표 */
-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:6px;overflow:hidden}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 th,td{text-align:left;padding:.9rem 1.1rem;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-weight:700;font-size:.875rem;color:var(--muted);background:#E3E6F0}
+th{font-weight:700;font-size:.875rem;color:var(--muted);background:var(--panel)}
 tr:last-child td{border-bottom:0}
 td:first-child{font:500 .95rem var(--display);white-space:nowrap;font-variant-numeric:tabular-nums}
 .sub{display:block;margin-top:.15rem;font-size:.875rem;color:var(--muted);line-height:1.55}
-td a{font-weight:700;text-decoration-color:var(--marker);text-decoration-thickness:.35em;text-underline-offset:-.12em;text-decoration-skip-ink:none}
+td a{font-weight:700;text-decoration-color:var(--marker);text-decoration-thickness:2px;text-underline-offset:.28em}
 td a:hover{text-decoration-color:var(--indigo);color:var(--indigo)}
 
 /* 프로젝트 */
-.project{display:grid;grid-template-columns:11rem 1fr;gap:2rem;padding-block:3rem;border-top:2px solid var(--ink);scroll-margin-top:1rem}
+.project{display:grid;grid-template-columns:11rem 1fr;gap:2rem;margin-block:1.5rem;padding:2.25rem 2.25rem 2.5rem;background:var(--card);border:1px solid var(--line);border-radius:16px;scroll-margin-top:1rem}
 .when{font:700 1.05rem/1.5 var(--display);font-variant-numeric:tabular-nums}
 .when small{display:block;margin-top:.6rem;font:400 .875rem/1.5 var(--body);color:var(--muted)}
 .kind{display:inline-block;margin-top:.6rem;padding:.1rem .6rem;font:700 .8125rem/1.7 var(--body);border-radius:3px;background:var(--ink);color:var(--paper)}
-.kind.solo{background:var(--marker);color:var(--ink)}
-.kind.intern{background:var(--indigo);color:#fff}
+.kind.solo{background:var(--marker);color:var(--on-marker)}
+.kind.intern{background:var(--indigo);color:var(--on-marker)}
 /* 주제 표시: 히어로와 같은 언어. 읽어 주기 = 형광펜, 가리기 = 검은 테이프 */
 .theme{display:block;width:max-content;margin-top:.9rem;padding:0 .3em;font:800 .875rem/1.6 var(--body)}
-.t-read{background:linear-gradient(transparent 45%,var(--marker) 45%)}
+.t-read{background:var(--marker);color:var(--on-marker)}
 .t-hide{background:var(--ink);color:var(--paper)}
 @media (min-width:44.01rem){.when{position:sticky;top:1.5rem;align-self:start}}
 /* 프로젝트 바로가기: 주제별 묶음 */
-.pindex{display:grid;gap:.55rem;margin:0 0 2.5rem;padding:1.1rem 1.25rem;background:var(--card);border:1px solid var(--line);border-radius:6px}
+.pindex{display:grid;gap:.55rem;margin:0 0 2.5rem;padding:1.25rem 1.5rem;background:var(--card);border:1px solid var(--line);border-radius:16px}
 .pindex div{display:grid;grid-template-columns:6.5rem 1fr;gap:.75rem;align-items:baseline}
 .pindex b{font-size:.875rem}
 .pindex b span{padding:0 .3em}
 .pindex ul{display:flex;flex-wrap:wrap;gap:.25rem 1.1rem;margin:0;padding:0;list-style:none}
-.pindex a{font-weight:600;text-decoration-color:var(--marker);text-decoration-thickness:.3em;text-underline-offset:-.1em;text-decoration-skip-ink:none}
+.pindex a{font-weight:600;text-decoration-color:var(--marker);text-decoration-thickness:2px;text-underline-offset:.28em}
 .pindex a:hover{color:var(--indigo)}
 footer a{color:var(--ink);font-weight:600}
 .body{display:grid;grid-template-columns:1fr 17rem;gap:2.5rem;align-items:start}
@@ -87,10 +95,10 @@ footer a{color:var(--ink);font-weight:600}
 .project li{margin:.2rem 0}
 .project li::marker{color:var(--indigo)}
 .chips{display:flex;flex-wrap:wrap;gap:.4rem;padding:0!important;list-style:none}
-.chips li{margin:0;padding:.1rem .65rem;background:var(--card);border:1px solid var(--line);border-radius:999px;font-size:.875rem}
+.chips li{margin:0;padding:.1rem .65rem;background:var(--panel);border:1px solid var(--line);border-radius:999px;font-size:.875rem}
 .files{display:grid;gap:.6rem;max-width:40rem;margin-top:.9rem}
-.files>div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.7rem .9rem;font-size:.9375rem}
-.files code{font:700 .875rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--indigo)}
+.files>div{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:.7rem .9rem;font-size:.9375rem}
+.files code{font:700 .875rem var(--mono);color:var(--indigo)}
 .files p{display:grid;grid-template-columns:3.2em 1fr;margin:.3rem 0 0;line-height:1.65}
 .files b{font-size:.8125rem;color:var(--muted)}
 dl{display:grid;grid-template-columns:auto 1fr;gap:.25rem 1rem;margin:1.25rem 0 0;font-size:.9375rem}
@@ -98,18 +106,18 @@ dt{color:var(--muted)} dd{margin:0}
 
 figure{margin:0}
 figcaption{margin-top:.6rem;font-size:.8125rem;color:var(--muted)}
-.sheet{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:6px;background:var(--card);cursor:zoom-in;overflow:hidden}
+.sheet{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--card);cursor:zoom-in;overflow:hidden}
 .sheet img{display:block;width:100%;height:auto}
 .sheet:hover{border-color:var(--indigo)}
 .fig-gap{margin-top:1.4rem}
 .inline-shot{max-width:40rem;margin-top:.9rem}
 
 /* 직접 만든 예시 화면 */
-.mock{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1.1rem;font-size:.8125rem;line-height:1.9}
+.mock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.1rem;font-size:.8125rem;line-height:1.9}
 .mock .doc-title{font:700 .9rem var(--display);margin-bottom:.4rem}
 .verdict{display:flex;justify-content:space-between;align-items:center;margin-top:.9rem;padding-top:.7rem;border-top:1px dashed var(--line)}
-.pass{padding:0 .6rem;background:var(--marker);font-weight:700;border-radius:3px}
-.seg{display:inline-flex;margin-bottom:.6rem;padding:2px;background:var(--card);border:1px solid var(--line);border-radius:999px}
+.pass{padding:0 .6rem;background:var(--passbg);color:var(--pass);font-weight:700;border-radius:3px}
+.seg{display:inline-flex;margin-bottom:.6rem;padding:2px;background:var(--panel);border:1px solid var(--line);border-radius:999px}
 .seg button{padding:.25rem .85rem;border:0;border-radius:999px;background:none;color:var(--muted);font:600 .8125rem var(--body);cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 /* 검은 막대가 왼쪽에서 오른쪽으로 하나씩 덮는다(--d: 순서별 지연) */
@@ -122,17 +130,17 @@ figcaption{margin-top:.6rem;font-size:.8125rem;color:var(--muted)}
 .photo{position:relative;flex:none;width:3.4rem}
 .photo svg{display:block;width:100%;border-radius:3px}
 .photo .pii{position:absolute;left:.2rem;right:.2rem;bottom:.2rem;text-align:center;font-size:.6875rem;line-height:1.5}
-.photo .pii{background-color:#fff}
+.photo .pii{background-color:var(--card)}
 .tag{display:inline-block;padding:0 .4rem;border-radius:3px;background:var(--paper);color:var(--muted);font:700 .6875rem/1.7 var(--body)}
 .sec{margin-top:.7rem}
 .kv{display:grid;grid-template-columns:auto 1fr;margin-top:.25rem;border:1px solid var(--line);border-radius:3px}
 .kv>span{padding:.1rem .5rem;border-bottom:1px solid var(--line)}
-.kv>span:nth-child(odd){background:#F3F4F8;color:var(--muted)}
+.kv>span:nth-child(odd){background:var(--card);color:var(--muted)}
 .kv>span:nth-last-child(-n+2){border-bottom:0}
 .chart .b{display:grid;grid-template-columns:2.2rem 1fr;align-items:center;gap:.4rem;font-size:.75rem;line-height:1.6}
 .chart i{width:calc(var(--w)*1%);height:.55rem;background:var(--indigo);border-radius:2px}
 .shape{margin-top:.25rem;padding:.3rem .65rem;border:1.5px dashed var(--indigo);border-radius:14px}
-.warn{padding:0 .6rem;background:#F8E4E1;color:#B4352B;font-weight:700;border-radius:3px}
+.warn{padding:0 .6rem;background:var(--failbg);color:var(--fail);font-weight:700;border-radius:3px}
 .more{max-width:40rem;margin-top:1.1rem;padding-top:.6rem;border-top:1px solid var(--line)}
 .more summary{display:flex;align-items:center;gap:.6rem;font:700 1rem var(--body);list-style:none;cursor:pointer}
 .more summary::-webkit-details-marker{display:none}
@@ -145,61 +153,146 @@ figcaption{margin-top:.6rem;font-size:.8125rem;color:var(--muted)}
 /* 시연 영상에서 휴대폰 부분만 잘라 낸 영상. 모서리는 영상 속 휴대폰 테두리에 맞춤 */
 .now{margin:0 auto .5rem;max-width:15rem;text-align:center;font-weight:700;font-size:.875rem;color:var(--indigo)}
 /* 웹 콘솔 미리보기: 확장안별 명령 → 로그 → 결과 막대 */
-.console{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:.75rem;line-height:1.6}
-.c-head{display:flex;justify-content:space-between;align-items:center;padding:.45rem .7rem;background:var(--ink);color:var(--paper);font-weight:700}
+.console{background:#0D1117;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.75rem;line-height:1.6}
+.c-head{display:flex;justify-content:space-between;align-items:center;padding:.45rem .7rem;background:#161B22;color:var(--ink);border-bottom:1px solid var(--line);font-weight:700}
 .c-srv{display:flex;align-items:center;gap:.35rem;font-weight:500;font-size:.6875rem;color:var(--line)}
-.c-srv i{width:.45rem;height:.45rem;border-radius:50%;background:#3FBF7F}
+.c-srv i{width:.45rem;height:.45rem;border-radius:50%;background:var(--pass)}
 .c-list{list-style:none;margin:0;padding:.5rem .6rem!important;display:grid;gap:.15rem;border-bottom:1px solid var(--line)}
 .c-list li{display:flex;gap:.5rem;align-items:center;margin:0;padding:.1rem .45rem;border-radius:3px;color:var(--muted);transition:background .25s,color .25s}
-.c-list li.on{background:var(--indigo);color:#fff}
-.c-list code,.c-log{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.c-list li.on{background:var(--brand2);color:var(--indigo)}
+.c-list code,.c-log{font-family:var(--mono)}
 .c-list code{font-size:.6875rem}
-.c-log{min-height:6.4rem;padding:.5rem .7rem;background:#F3F4F8;font-size:.6875rem}
+.c-log{min-height:6.4rem;padding:.5rem .7rem;background:#0D1117;color:#C9D1D9;font-size:.6875rem}
 .c-log p{margin:0;display:flex;justify-content:space-between;gap:.5rem;animation:cin .25s ease-out}
-.c-log .cmd{color:var(--muted)} .c-log .ok{color:var(--indigo);font-weight:700} .c-log .ng{color:#B4352B;font-weight:700}
+.c-log .cmd{color:var(--muted)} .c-log .ok{color:var(--pass);font-weight:700} .c-log .ng{color:var(--fail);font-weight:700}
 @keyframes cin{from{opacity:0;transform:translateY(3px)}}
 .c-sum{padding:.55rem .7rem .65rem}
 .c-bar{display:flex;height:.55rem;border-radius:2px;overflow:hidden;background:var(--paper)}
 .c-bar b{width:0;transition:width .9s cubic-bezier(.6,0,.2,1)}
-.c-bar .p{background:var(--indigo)} .c-bar .w{background:var(--marker)} .c-bar .f{background:#B4352B}
+.c-bar .p{background:var(--pass)} .c-bar .w{background:var(--warnc)} .c-bar .f{background:var(--fail)}
 .c-num{margin:.35rem 0 0;min-height:1.6em;font-size:.6875rem;color:var(--muted)}
-@media (min-width:72rem){.body:has(.wide-video){grid-template-columns:1fr 24rem}}
-.wide-video{display:block;width:100%;height:auto;border-radius:6px;background:#1B2440}
+@media (min-width:72rem){.body:has(.wide-video),.body:has(.cdd){grid-template-columns:1fr 26rem}}
+/* 넓은 그림(가로 영상·CDD 예시)은 좁은 화면에서 본문 아래로 크게 */
+@media (max-width:71.99rem){.body:has(.wide-video),.body:has(.cdd){grid-template-columns:1fr}
+  .body:has(.wide-video) figure,.body:has(.cdd) figure{max-width:38rem!important}}
+.wide-video{display:block;width:100%;height:auto;border-radius:12px;background:#0D1117;border:1px solid var(--line)}
 /* 직접 그린 흐름도·편집기·휴대폰 화면 예시 */
 .flow{list-style:none;margin:.4rem 0 0;padding:0!important;counter-reset:f}
-.flow li{position:relative;margin:0 0 .5rem;padding:.35rem .6rem .35rem 2rem;background:#F3F4F8;border-radius:4px;line-height:1.55}
-.flow li::before{counter-increment:f;content:counter(f);position:absolute;left:.55rem;top:.4rem;width:1.05rem;height:1.05rem;border-radius:50%;background:var(--indigo);color:#fff;font:700 .6875rem/1.05rem var(--body);text-align:center}
+.flow li{position:relative;margin:0 0 .5rem;padding:.35rem .6rem .35rem 2rem;background:var(--card);border-radius:4px;line-height:1.55}
+.flow li::before{counter-increment:f;content:counter(f);position:absolute;left:.55rem;top:.4rem;width:1.05rem;height:1.05rem;border-radius:50%;background:var(--indigo);color:var(--on-marker);font:700 .6875rem/1.05rem var(--body);text-align:center}
 .flow li b{display:block;font-size:.8125rem}
 .flow li span{font-size:.75rem;color:var(--muted)}
 .cmp{display:grid;grid-template-columns:1fr;gap:.15rem;margin-top:.45rem;font-size:.75rem;line-height:1.5}
 .cmp i{display:block;height:.5rem;border-radius:2px;background:var(--line);width:calc(var(--w)*1%)}
 .cmp i.aft{background:var(--indigo)}
-.mock del{color:#B4352B;text-decoration-thickness:1.5px}
+.mock del{color:var(--fail);text-decoration-thickness:1.5px}
 .mock ins{color:var(--indigo);text-decoration:underline;text-underline-offset:.2em}
-.coach{margin:.3rem 0 0;padding:.45rem .65rem;background:#ECEBFA;color:var(--ink);border-radius:4px}
-.wit{max-width:15rem;margin:0 auto;padding:.9rem;background:#F6F5EF;border-radius:22px;border:6px solid #1B2440;font-size:.75rem}
-.wit h5{margin:0;font:800 1.15rem/1.2 var(--body);color:#123127}
-.wit .cam{position:relative;height:9rem;margin:.6rem 0;border-radius:10px;background:#123127;overflow:hidden}
-.wit .can{position:absolute;left:42%;top:12%;width:2.2rem;height:5.4rem;border-radius:6px;background:#1D1D1D}
-.wit .can::after{content:"ZERO";position:absolute;left:0;right:0;top:40%;text-align:center;font:800 .5rem var(--body);color:#fff}
-.wit .tip{position:absolute;left:47%;top:72%;width:.8rem;height:2.6rem;border-radius:.4rem .4rem 0 0;background:#E8B89A}
-.wit .spoken{margin:0;font-weight:700;color:#123127}
-.wit .btn{margin-top:.45rem;padding:.35rem;border-radius:8px;background:#1F5240;color:#fff;text-align:center;font-weight:700}
-.try{display:block;max-width:15rem;margin:1rem auto 0;padding:.6rem 1rem;border-radius:6px;background:var(--ink);color:var(--paper);font-weight:700;text-align:center;text-decoration:none}
-.try:hover{background:var(--indigo)}
+.coach{margin:.3rem 0 0;padding:.45rem .65rem;background:var(--brand2);color:var(--ink);border-radius:4px}
+.try{display:block;max-width:15rem;margin:1rem auto 0;padding:.6rem 1rem;border-radius:10px;background:var(--indigo);color:var(--on-marker);font-weight:700;text-align:center;text-decoration:none}
+.try:hover{background:var(--ink)}
 .try-note{max-width:15rem;margin:.4rem auto 0;font-size:.8125rem;color:var(--muted);text-align:center}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.phone-video{display:block;width:100%;max-width:15rem;height:auto;margin:0 auto;border-radius:10.9%/5.4%;background:#1B2440}
+.phone-video{display:block;width:100%;max-width:15rem;height:auto;margin:0 auto;border-radius:10.9%/5.4%;background:#0D1117}
+
+/* What Is This? 동작 예시: 실제 앱 색(#f6f5ee·#102922·#154c3d)과 문구 */
+.wit{--wg:#102922;--wb:#154c3d;max-width:15rem;margin:0 auto;padding:.85rem .85rem 1rem;background:#F6F5EE;color:#102922;border:7px solid #0D1117;border-radius:28px;font-size:.6875rem;line-height:1.5;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.wit h5{margin:.2rem 0 .35rem;font:800 1.45rem/1.05 var(--body);letter-spacing:-.06em}
+.w-hint{margin:0;color:#465b53}
+.w-cam{position:relative;aspect-ratio:4/3;margin:.55rem 0 .45rem;border-radius:12px;background:var(--wg);overflow:hidden}
+.w-off{position:absolute;inset:0;display:grid;place-items:center;color:#fff;transition:opacity .3s}
+.w-shelf{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-end;gap:.45rem;padding-bottom:20%;background:linear-gradient(#1d3b33,#16302a 62%,#c9c3b2 62%,#bdb6a3 66%,#16302a 66%);opacity:0;transition:opacity .5s}
+.w-can{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;width:2.35rem;height:4.2rem;border-radius:.45rem .45rem .3rem .3rem;font:800 .38rem/1 var(--body);color:#fff;text-transform:uppercase}
+.w-can.c1{background:#C8102E;text-transform:none;font-style:italic;font-size:.45rem}
+.w-can.c2{background:#111;outline:0 solid #FFD84A;transition:outline-width .3s}
+.w-can.c3{background:#0B3C9C}
+.w-can b{padding:.08rem .12rem;border-radius:2px;outline:0 solid #7FB0FF;transition:outline-width .2s}
+.w-can .o3{color:#9CE37D}
+.w-finger{position:absolute;left:50%;top:100%;width:.95rem;height:3.4rem;margin-left:-.48rem;border-radius:.5rem .5rem .3rem .3rem;background:#E8B89A;transition:top .9s cubic-bezier(.2,.8,.2,1)}
+.w-finger i{position:absolute;left:50%;width:.32rem;height:.32rem;margin-left:-.16rem;border-radius:50%;background:#7FB0FF;box-shadow:0 0 0 1.5px #0D1117;opacity:0;transition:opacity .25s}
+.w-finger i:nth-child(1){top:.1rem} .w-finger i:nth-child(2){top:.9rem} .w-finger i:nth-child(3){top:1.7rem} .w-finger i:nth-child(4){top:2.5rem}
+.w-ring{position:absolute;left:50%;top:69%;width:1.5rem;height:1.5rem;margin:-.75rem 0 0 -.75rem;border-radius:50%;background:conic-gradient(#FFD84A var(--p,0%),rgba(255,255,255,.18) 0);-webkit-mask:radial-gradient(circle,transparent 52%,#000 54%);mask:radial-gradient(circle,transparent 52%,#000 54%);opacity:0;transition:opacity .2s}
+.w-model{position:absolute;left:.4rem;top:.4rem;padding:.05rem .4rem;border-radius:999px;background:rgba(13,17,23,.78);color:#E6E8EB;font:600 .5625rem/1.6 var(--mono);opacity:0;transition:opacity .2s}
+.w-status{min-height:3em;margin:.2rem 0 .35rem;font-weight:600}
+.w-btn{padding:.55rem;border-radius:9px;background:var(--wb);color:#fff;font-weight:700;font-size:.75rem;text-align:center;transition:transform .15s,filter .15s}
+.w-btn.press{transform:scale(.96);filter:brightness(1.25)}
+.w-sec{margin-top:.35rem;background:#E0E9DF;color:#102922;opacity:0;transition:opacity .3s}
+.wit:not([data-step="0"]) .w-off{opacity:0}
+.wit:not([data-step="0"]) .w-shelf,.wit:not([data-step="0"]) .w-sec{opacity:1}
+.wit:not([data-step="0"]) .w-model{opacity:1}
+.wit[data-step="2"] .w-finger,.wit[data-step="3"] .w-finger,.wit[data-step="4"] .w-finger{top:74%}
+.wit[data-step="2"] .w-finger i,.wit[data-step="3"] .w-finger i{opacity:1}
+.wit[data-step="2"] .w-ring{opacity:1;animation:dwell 1.6s linear .6s forwards}
+@property --p{syntax:'<percentage>';inherits:false;initial-value:0%}
+@keyframes dwell{to{--p:100%}}
+.wit[data-step="3"] .w-can.c2 b{outline-width:1.5px}
+.wit[data-step="3"] .w-can.c2 .o2{transition-delay:.35s} .wit[data-step="3"] .w-can.c2 .o3{transition-delay:.7s}
+.wit[data-step="4"] .w-can.c2{outline-width:2.5px}
+.wit[data-step="4"] .w-status{font-size:.95rem;font-weight:800}
+.wit[data-step="4"] .w-status::before{content:"";display:inline-block;width:.8em;height:.8em;margin-right:.35em;vertical-align:-.05em;background:var(--wb);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* CDD 동작 예시: 실제 웹 화면(밝은 화면)을 줄여 옮김 */
+.cdd{--kn:#14213D;background:#F5F6F8;color:#1F2328;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.625rem;line-height:1.45;box-shadow:0 14px 34px rgba(0,0,0,.4)}
+.k-top{display:flex;justify-content:space-between;align-items:center;padding:.55rem .7rem;border-bottom:2px solid var(--kn)}
+.k-top b{font:800 .8rem var(--body)}
+.k-pill{padding:.05rem .55rem;border:1.5px solid var(--kn);border-radius:6px;font-weight:700;font-size:.5625rem}
+.k-pill::after{content:"대기"}
+.cdd[data-step="2"] .k-pill,.cdd[data-step="3"] .k-pill{background:#FFF4D6;border-color:#A05A00;color:#A05A00}
+.cdd[data-step="2"] .k-pill::after,.cdd[data-step="3"] .k-pill::after{content:"수집 중"}
+.cdd[data-step="4"] .k-pill{background:#E6F4EA;border-color:#137333;color:#137333}
+.cdd[data-step="4"] .k-pill::after{content:"완료"}
+.k-body{display:grid;grid-template-columns:7.2rem 1fr;gap:.6rem;padding:.6rem}
+.k-left{position:relative;padding:.5rem;background:#fff;border:1px solid #E3E1DA;border-radius:8px}
+.k-q{margin:.35rem 0 .25rem;font-weight:700}
+.k-q:first-child{margin-top:0}
+.k-q i{display:inline-block;width:1.1em;height:1.1em;margin-right:.3em;border-radius:50%;background:var(--kn);color:#fff;font:700 .5rem/1.1em var(--body);text-align:center;font-style:normal}
+.k-src,.k-fmt{display:flex;flex-wrap:wrap;gap:.2rem}
+.k-src span,.k-fmt span{padding:.05rem .35rem;border:1px solid #D0D4DA;border-radius:5px;font-weight:600;font-size:.5625rem;transition:background .2s,color .2s}
+.k-src .on{background:var(--kn);color:#fff;border-color:var(--kn)}
+.k-num{padding:.15rem .4rem;background:#F1F2F4;border-radius:5px;font-weight:600}
+.k-go{margin-top:.5rem;padding:.35rem;border-radius:6px;background:var(--kn);color:#fff;font-weight:800;text-align:center;transition:transform .15s,filter .15s}
+.cdd:not([data-step="0"]) .k-docx{background:var(--kn);color:#fff;border-color:var(--kn)}
+.cdd[data-step="2"] .k-go{transform:scale(.95);filter:brightness(1.4)}
+.k-cursor{position:absolute;left:70%;top:20%;width:.9rem;height:.9rem;background:#111;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 2l14 10-6.2 1.2L16 21l-3 1.3-3.3-7.6L5 19z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 2l14 10-6.2 1.2L16 21l-3 1.3-3.3-7.6L5 19z'/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 0 1px #fff);transition:left .7s cubic-bezier(.3,.7,.2,1),top .7s cubic-bezier(.3,.7,.2,1)}
+.cdd[data-step="1"] .k-cursor{left:62%;top:52%}
+.cdd[data-step="2"] .k-cursor,.cdd[data-step="3"] .k-cursor,.cdd[data-step="4"] .k-cursor{left:55%;top:90%}
+.k-right{min-width:0}
+.k-count{margin:0;font-size:.6875rem}
+.k-count b{font:800 1.3rem/1 var(--body);font-variant-numeric:tabular-nums;margin-right:.15rem}
+.k-bar{height:.25rem;margin:.35rem 0 .45rem;background:#E3E1DA;border-radius:999px;overflow:hidden}
+.k-bar span{display:block;height:100%;width:var(--w,0%);background:var(--kn);transition:width .5s}
+.k-table{background:#fff;border:1px solid #E3E1DA;border-radius:8px;overflow:hidden}
+.k-head,.k-row{display:grid;grid-template-columns:1fr 4.2rem 2.9rem 2.2rem;gap:.3rem;padding:.25rem .45rem}
+.k-head{color:#57606A;border-bottom:1.5px solid var(--kn);font-weight:600}
+.k-row{border-bottom:1px solid #EEECE6;animation:krow .35s ease-out}
+.k-row span:first-child{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:600}
+.k-row span:nth-child(3){color:#1B4D8C}
+@keyframes krow{from{opacity:0;transform:translateY(-4px)}}
+.k-log{min-height:4.1rem;margin-top:.45rem;padding:.4rem .5rem;background:#0D1117;color:#C9D1D9;border-radius:8px;font:.5rem/1.6 var(--mono)}
+.k-log p{margin:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;animation:cin .25s ease-out}
+.k-log .ok{color:#5FD38A}
+@media (max-width:30rem){.k-body{grid-template-columns:1fr}.k-cursor{display:none}}
+
+/* What Is This? vs 소리한상 비교 */
+.vs{margin:0 0 2.5rem;padding:1.5rem 1.75rem;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.vs h3{margin:0 0 1rem;font:800 1.15rem/1.4 var(--display)}
+.vs h3 a{color:var(--indigo);text-decoration:none}
+.vs-scroll{overflow-x:auto}
+.vs table{min-width:34rem;border:0;border-radius:0;background:none}
+.vs th,.vs td{padding:.6rem .8rem;font-size:.9375rem;border-bottom:1px solid var(--line)}
+.vs thead th{background:none;color:var(--ink);font-size:1rem;border-bottom:2px solid var(--line)}
+.vs tbody th{width:7rem;color:var(--muted);font-weight:600;white-space:nowrap}
+.vs td:first-of-type{color:var(--ink)}
+.vs tr:last-child th,.vs tr:last-child td{border-bottom:0}
 
 /* 기술 */
-.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
-.skills h3{margin:0 0 .5rem;font:700 1rem var(--body);padding-bottom:.5rem;border-bottom:2px solid var(--ink)}
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;padding:2rem 2.25rem;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.skills h3{margin:0 0 .5rem;font:700 1rem var(--body);padding-bottom:.5rem;border-bottom:2px solid var(--line)}
 .skills p{margin:0;color:var(--muted)}
 
 footer{padding-block:2.5rem 4rem;color:var(--muted);font-size:.875rem;border-top:1px solid var(--line)}
 
-dialog{border:0;padding:0;border-radius:6px;max-width:min(60rem,94vw);max-height:94vh;background:var(--card)}
-dialog::backdrop{background:rgba(20,22,43,.72)}
+dialog{border:1px solid var(--line);padding:0;border-radius:12px;max-width:min(60rem,94vw);max-height:94vh;background:var(--card)}
+dialog::backdrop{background:rgba(5,7,10,.8)}
 dialog img{display:block;max-width:100%;max-height:calc(94vh - 3.5rem);margin:auto}
 dialog form{display:flex;justify-content:flex-end;padding:.5rem}
 dialog button{font:700 .9rem var(--body);padding:.35rem 1rem;border:0;border-radius:3px;background:var(--ink);color:var(--paper);cursor:pointer}
@@ -210,17 +303,20 @@ dialog button{font:700 .9rem var(--body);padding:.35rem 1rem;border:0;border-rad
   .skills{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:44rem){
-  .project{grid-template-columns:1fr;gap:1rem}
+  .project{grid-template-columns:1fr;gap:1rem;padding:1.4rem 1.2rem 1.6rem}
+  .vs,.skills{padding:1.2rem}
+  .pindex div{grid-template-columns:1fr;gap:.3rem}
   .top nav{gap:1rem;font-size:.9375rem}
-  thead{display:none}
-  tr{display:block;padding:.8rem 1rem;border-bottom:1px solid var(--line)}
-  tr:last-child{border-bottom:0}
-  td{display:block;padding:0;border:0}
-  td:nth-child(n+3){display:inline;color:var(--muted);font-size:.875rem;margin-right:.6rem}
+  #history thead{display:none}
+  #history tr{display:block;padding:.8rem 1rem;border-bottom:1px solid var(--line)}
+  #history tr:last-child{border-bottom:0}
+  #history td{display:block;padding:0;border:0}
+  #history td:nth-child(n+3){display:inline;color:var(--muted);font-size:.875rem;margin-right:.6rem}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .say span{animation:none;background-size:100% 100%}
+  .say .read{color:var(--on-marker)}
 }
 </style>
 </head>
@@ -241,6 +337,7 @@ dialog button{font:700 .9rem var(--body);padding:.35rem 1rem;border:0;border-rad
       <span class="hide">보여선 안 되는 것은 가립니다.</span>
     </h1>
     <p><b>AI 개발자 김세훈</b>입니다. 시각장애인이 화장하고, 장을 보고, 옷을 고르고, 밥을 먹고, 음료를 고르는 일을 음성과 OCR, 비전 AI로 돕는 서비스를 만들어 왔고, 지금은 문서 속 개인정보가 빠짐없이 가려졌는지 검증하는 도구를 만들고 있습니다.</p>
+    <div class="bands" aria-hidden="true"><i style="--f:5"></i><i style="--f:3"></i><i style="--f:2"></i><i style="--f:1"></i></div>
   </div>
 
   <section id="history" aria-labelledby="h-history">
@@ -254,6 +351,20 @@ dialog button{font:700 .9rem var(--body);padding:.35rem 1rem;border:0;border-rad
   <section id="projects" aria-labelledby="h-projects">
     <h2 id="h-projects">프로젝트</h2>
     <nav class="pindex" id="pindex" aria-label="프로젝트 바로가기"></nav>
+    <div class="vs" aria-labelledby="h-vs">
+      <h3 id="h-vs">비슷해 보이지만 다른 두 프로젝트: <a href="#whatisthis">What Is This?</a>와 <a href="#sorihansang">소리한상</a></h3>
+      <div class="vs-scroll"><table>
+        <thead><tr><th scope="col"></th><th scope="col">What Is This?</th><th scope="col">소리한상</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">어디서</th><td>편의점 냉장고 앞</td><td>식탁 앞</td></tr>
+          <tr><th scope="row">무엇을</th><td>진열된 음료 하나</td><td>여러 반찬·국·밥·물컵이 놓인 한 상</td></tr>
+          <tr><th scope="row">데이터</th><td>CU 홈페이지 음료 목록을 크롤링해 만든 상품 목록·사진</td><td>AI Hub 음식 사진 데이터로 학습</td></tr>
+          <tr><th scope="row">찾는 방법</th><td>가리킨 라벨 글자를 OCR로 읽어 상품 목록과 대조(부족하면 DINOv2 사진 비교)</td><td>가리킨 손가락·젓가락 끝 방향의 접시를 골라 음식 인식(Gemma 4 · MediaPipe)</td></tr>
+          <tr><th scope="row">알려 주는 것</th><td>제품명, 일반·제로, 맛</td><td>음식 이름, 반찬이 남은 양, 물컵 위치, 뜨거운 국·찌개 “조심하세요”, 옮겨진 반찬의 새 위치</td></tr>
+          <tr><th scope="row">어디서 처리</th><td>휴대폰 브라우저 안</td><td>내 컴퓨터(로컬 Gemma 4)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
     <div id="list"></div>
   </section>
 
@@ -334,20 +445,61 @@ const macroMock = `
     <span>10px 안에 맞은 클릭 78% → 81%</span><i style="--w:78"></i><i class="aft" style="--w:81"></i>
   </div>
 </div>`;
-const munjangMock = `
-<div class="mock" role="img" aria-label="자기소개서 비교 예시. 지운 말은 빨간 취소선, 새로 넣은 말은 파란 밑줄로 표시되고, 아래에 AI 면접관의 점수와 예상 꼬리질문이 나옴">
-  <div class="doc-title">자기소개서 2번 문항 · 초본 ↔ 수정본</div>
-  <p style="margin:0">저는 <del>맡은 일을 열심히 하는</del> <ins>문제를 끝까지 붙잡는</ins> 사람입니다. 동아리 대회 준비 때 <del>많은</del> <ins>세 번의</ins> 실패를 기록으로 남겼습니다.</p>
-  <div class="sec"><span class="tag">AI 면접관</span></div>
-  <p class="coach">구체성 4/5 · 예상 꼬리질문: “세 번의 실패에서 각각 무엇을 바꿨나요?”</p>
-</div>`;
 const witMock = `
-<div class="wit" role="img" aria-label="What Is This 화면 예시. 카메라 화면에서 손끝이 캔 음료 라벨 아래를 가리키고, 앱이 제품명을 읽어 준 뒤 지금 읽기와 바코드로 확인 버튼이 보임">
-  <h5>What Is This?</h5>
-  <div class="cam"><span class="can"></span><span class="tip"></span></div>
-  <p class="spoken">“펩시 제로 라임.”</p>
-  <div class="btn">지금 읽기</div>
-  <div class="btn" style="background:#DDE6DF;color:#123127">바코드로 확인</div>
+<div class="wit" data-step="0" role="img" aria-label="What Is This 웹 화면의 동작 예시. 카메라를 켜고, 검지로 펩시 캔 라벨 아래를 가리켜 잠시 멈추면 손 랜드마크가 잡히고, 라벨의 PEPSI, ZERO SUGAR, LIME 글자를 읽은 뒤 펩시 제로 라임이라고 소리로 알려 줌">
+  <h5 lang="en">What Is This?</h5>
+  <p class="w-hint">음료 이름 바로 아래를 검지로 가리켜 주세요. 잠시 멈추면 제품명을 읽어 드려요.</p>
+  <div class="w-cam">
+    <span class="w-off">카메라 꺼짐</span>
+    <div class="w-shelf" aria-hidden="true">
+      <span class="w-can c1"><b>Coca</b><b>Cola</b></span>
+      <span class="w-can c2"><b class="o1">PEPSI</b><b class="o2">ZERO SUGAR</b><b class="o3">LIME</b></span>
+      <span class="w-can c3"><b>PEPSI</b></span>
+    </div>
+    <span class="w-finger" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="w-ring" aria-hidden="true"></span>
+    <span class="w-model" aria-hidden="true"></span>
+  </div>
+  <p class="w-status" aria-hidden="true"></p>
+  <div class="w-btn" aria-hidden="true"></div>
+  <div class="w-btn w-sec" aria-hidden="true">바코드로 확인</div>
+</div>`;
+
+// CDD 동작 예시: 파일 목록과 진행 기록 형식은 실제 수집 결과 화면·sampler.py 출력 그대로
+const CDD_ROWS = [
+ ['문서양식.docx','한국환경공단','포털','51KB'],
+ ['자재라벨양식.docx','한국환경공단','포털','22KB'],
+ ['합격증양식.docx','한국환경공단','포털','28KB'],
+ ['한국가스공사_물질안전보건자료_20250716.docx','한국가스공사','포털','61KB'],
+ ['수소-튜브트레일러-규격표준.docx','한국가스공사','포털','56KB'],
+ ['2024 LH 유관민원 주요 Q&A..docx','한국토지주택공사','기관 페이지','247KB']];
+const CDD_LOG = [
+ [3,'한국환경공단_국가물산업클러스터 시험분석 결과 및 통지 양식','portal',3],
+ [4,'한국가스공사_물질안전보건자료_20250716','portal',1],
+ [5,'한국가스공사_수소 튜브트레일러 규격표준_20230704','portal',1],
+ [9,'한국토지주택공사_민원 주요 QnA_20240331','org',4],
+ [20,'한국토지주택공사_비위면직자 취업제한 제도_20201030','org',11]];
+const cddMock = `
+<div class="cdd" data-step="0" role="img" aria-label="CDD 웹 화면의 동작 예시. 왼쪽에서 공공데이터포털과 DOCX 형식, 모을 개수 20을 고르고 수집 시작을 누르면, 진행 기록이 한 줄씩 나오며 오른쪽 표에 한국환경공단·한국가스공사·한국토지주택공사의 실제 공공문서가 제공기관·출처·크기와 함께 채워지고, 20개를 모으면 완료됨">
+  <div class="k-top"><b>Crawling-Document-Data</b><span class="k-pill"></span></div>
+  <div class="k-body">
+    <div class="k-left" aria-hidden="true">
+      <p class="k-q"><i>1</i>어디서 모을까요</p>
+      <div class="k-src"><span class="on">공공데이터포털</span><span>부처 보도자료</span></div>
+      <p class="k-q"><i>2</i>어떤 형식을 모을까요</p>
+      <div class="k-fmt"><span>HWP</span><span>PDF</span><span class="k-docx">DOCX</span><span>XLSX</span></div>
+      <p class="k-q"><i>3</i>몇 개 모을까요</p>
+      <div class="k-num">20</div>
+      <div class="k-go">수집 시작</div>
+      <span class="k-cursor"></span>
+    </div>
+    <div class="k-right" aria-hidden="true">
+      <p class="k-count"><b>0</b>개 문서</p>
+      <div class="k-bar"><span></span></div>
+      <div class="k-table"><div class="k-head"><span>파일</span><span>제공기관</span><span>출처</span><span>크기</span></div></div>
+      <div class="k-log"></div>
+    </div>
+  </div>
 </div>`;
 
 const projects = [
@@ -539,40 +691,13 @@ const projects = [
      '같은 입력에도 gemma 답이 실행마다 달라질 때가 있고, 무지 옷은 상품 찾기가 특히 어려움',
      'GPT 버전은 아직 같은 기준으로 다시 재지 않았음. Mac이 켜져 있어야 함']}],
   tech:['Gemma 4(Ollama)','GPT API','Python','Firebase Firestore','NAVER API HUB 검색','기상청 단기예보 API','음성 인식·합성','PWA','Tailscale']},
- {id:'munjang', when:'2026.11 ~ 2026.12', kind:'개인 프로젝트', org:'우송대학교',
-  title:'자기소개서 문단별 비교·편집과 AI 면접관 피드백 웹앱 개발', alias:'문장곁', mock:munjangMock, cap:'가짜 문장으로 만든 예시',
-  lead:'자기소개서 원본·AI 수정본·내 원고를 문단별로 나란히 놓고 바뀐 부분을 표시하며 편집하고, 같은 화면에서 AI 면접관 관점의 평가와 수정안을 받는 로컬 웹앱입니다.',
-  role:'기획, 화면·로컬 서버 개발, AI CLI 연동, 코칭 지침 작성, 배포', env:'macOS, Windows, Node.js 22, Claude Code·Codex CLI', lang:'JavaScript(Node.js), HTML, CSS, Go',
-  did:['초본과 수정본을 단어 단위로 비교해 지운 말은 취소선, 넣은 말은 밑줄로 표시하는 편집기',
-       '원본·AI 수정본·내 원고 3열 편집. AI 수정을 적용해도 제안과 평가는 ‘적용됨’으로 남고, 내 원고에는 바뀐 부분을 빨간 표시로 보여 줌',
-       '문단·소제목마다 면접관 관점의 평가 항목 점수·예상 꼬리질문·고친 이유와 수정안 제공(기본 GPT, Claude 선택 가능)',
-       '코치 창에서 자소서 리뷰·모의 면접·기술 면접 3가지 모드, 번역체와 AI 상투어를 피하는 한국어 문장 지침 직접 작성',
-       'API 키 없이 이미 로그인된 Claude Code(도구 끔)·Codex CLI를 불러 쓰는 연결 서버와 화면 안 로그인',
-       '127.0.0.1에서만 열고 허용된 출처의 요청만 처리, 원고는 저장소 밖 파일에 원자적으로 저장(Google Drive 폴더 연결)',
-       'AI 수정안을 자연스러운 말투로 다시 쓰고, 내 원고에서 바뀐 곳을 빨간색으로 표시',
-       'Node.js 표준 라이브러리만 사용하고 가짜 CLI로 자동 테스트와 CI 구성, Go 실행기로 Node.js를 묶은 Windows 단일 실행 파일을 태그마다 빌드·배포'],
-  extra:[
-   {h:'비교 방식', items:[
-     '한글·영문 단어 단위로 나눠 비교하고, 조사(에서는·으로·까지 등)는 어간과 따로 비교해 조사만 바뀐 단어를 통째로 바뀐 것으로 표시하지 않음',
-     '문단은 단어 안의 두 글자 묶음이 얼마나 겹치는지로 짝을 맞춰, 문단 순서가 바뀌거나 추가·삭제돼도 같은 문단끼리 나란히 놓음',
-     '통째로 다시 쓴 문단(8단어 이상, 이어진 구절 없이 일치 16% 미만)은 우연히 같은 어미에 끌리지 않게 전체 변경으로 표시']},
-   {h:'AI 연결', items:[
-     '문단 수정은 자소서 리뷰 지침, 모의 면접 평가 항목 6개(각 5점)와 질문 은행, 직접 쓴 한국어 말투 지침을 함께 읽혀 요청',
-     '모의 면접·기술 면접 지침은 MIT 라이선스 공개 스킬을 가져와 씀',
-     'Claude는 사용자 설정·플러그인·외부 도구·파일 도구 없이 실행',
-     '로그인은 CLI의 공식 로그인만 실행하고, 서버는 계정 정보를 받지 않음']},
-   {h:'배포와 한계', items:[
-     '버전 태그마다 GitHub Actions에서 Windows 실행 파일을 빌드하고 실행해 코치 연결을 점검한 뒤, 체크섬과 함께 배포(v1.8.0까지)',
-     'macOS는 더블클릭해 실행하고, 원격 저장소의 새 버전을 30초마다 받아 반영하는 옵션 제공',
-     '코칭 대화는 탭 메모리에만 있어 새로고침하면 사라지고, 코칭 요청은 동시에 두 개까지만 처리. Windows 실행 파일은 코드 서명이 없음']}],
-  tech:['Node.js','HTML·CSS·JS','Claude Code CLI','Codex CLI','Go','GitHub Actions','Google Drive']},
  {id:'sorihansang', when:'2026.11 ~ 2026.12', kind:'개인 프로젝트', org:'우송대학교',
   title:'Gemma 4 · MediaPipe 기반 시각장애인용 식사 안내 도구 개발', alias:'소리한상',
-  video:{src:'assets/sorihansang-run.mp4', poster:'assets/sorihansang-poster.webp', w:654, h:248, cls:'wide-video',
-    cap:'실제 실행 화면 (시연 영상에서 카메라 부분, 43초 반복) · 카메라 대신 상차림 사진을, 마이크 대신 대본 문장을 넣어 재현한 시연',
-    steps:[[0,'“식사 시작” → 카메라 방향 안내'],[5,'“계란말이 찾아줘” → 밥그릇 기준 시계 방향 안내'],[13,'옮긴 계란말이를 다시 찾아 새 위치 안내'],[17,'젓가락으로 가리키고 “이거 뭐야?” → 생선구이'],[25,'다른 반찬을 가리키면 → 잡채'],[31,'물컵 위치 찾기'],[37,'“한상아, 모든 반찬 알려줘” → 방향별로 소개']],
-    alt:'소리한상이 백반 상차림을 인식하는 화면. 김치, 계란말이, 잡채, 생선구이, 찌개 등 반찬마다 이름표가 붙고, 계란말이 찾기, 젓가락으로 가리킨 반찬 알려 주기, 물컵 찾기, 모든 반찬 소개가 차례로 나옴'},
-  lead:'시각장애인이 화면을 보지 않고 손가락이나 젓가락으로 가리킨 반찬의 이름을 듣고, 누가 옮긴 반찬의 새 위치를 밥그릇 기준 시계 방향으로 안내받는 웹 도구입니다. 반찬 인식은 내 컴퓨터의 Gemma 4로 해서 식사 영상을 밖으로 보내지 않는 것이 기본입니다.',
+  video:{src:'assets/sorihansang-run.mp4', poster:'assets/sorihansang-poster.webp', w:816, h:400, cls:'wide-video',
+    cap:'실제 실행 화면 (시연 영상에서 카메라 부분, 48초 반복) · 카메라 대신 상차림 사진을, 마이크 대신 대본 문장을 넣어 재현한 시연 · 아래 자막은 앱이 소리로 안내한 문장',
+    steps:[[0,'“식사 시작” → 카메라 방향 안내'],[6,'반찬·물컵·수저마다 이름표'],[12,'“계란말이 찾아줘” → 밥그릇 기준 한 시 방향'],[20,'계란말이 접시 2개를 모두 안내'],[26,'젓가락으로 가리키고 “이거 뭐야?” → 잡채'],[34,'물컵 찾기 → 두 시 방향'],[40,'“모든 반찬 알려줘” → 그릇 12개 소개']],
+    alt:'소리한상이 백반 상차림을 인식하는 화면. 김치, 계란말이, 잡채, 생선구이, 찌개 등 반찬마다 이름표가 붙고, 계란말이 찾기, 젓가락으로 가리킨 반찬 알려 주기, 물컵 찾기, 모든 반찬 소개가 차례로 나오며 아래에 앱이 말한 문장이 자막으로 보임'},
+  lead:'식탁 위에 여러 반찬이 놓인 상황에서, 시각장애인이 손가락이나 젓가락으로 가리킨 음식이 무엇인지와 반찬이 얼마나 남았는지를 알려 주는 식사 안내 웹 도구입니다. AI Hub의 음식 사진 데이터로 학습한 인식에 더해, 물컵 위치와 뜨거운 국·찌개의 위치를 “조심하세요”로 알려 주고, 누가 옮긴 반찬의 새 위치를 밥그릇 기준 시계 방향으로 안내합니다. 식사 영상은 내 컴퓨터의 Gemma 4가 처리해 밖으로 보내지 않는 것이 기본입니다.',
   role:'기획·설계·개발·시험 (1인)', env:'macOS, Windows, Chrome, Ollama, Bun, Cloudflare Workers', lang:'JavaScript, Swift, Python, Shell',
   did:['로컬 Gemma 4(Ollama)에 JSON 스키마로 반찬 이름·위치·남은 양, 물컵·수저, 젓가락 끝·손잡이 좌표만 받아 오는 인식 구조',
        '브라우저 안 MediaPipe 손 인식으로 검지 방향을 구하고, 젓가락은 Gemma가 찾은 끝 방향으로 가리킨 접시를 고르는 판단 로직(브라우저·서버·테스트가 같은 코드 사용)',
@@ -604,9 +729,9 @@ const projects = [
      '시험 입력은 상차림 사진과 대본 문장이며, 실제 카메라·마이크를 쓴 식당 시험과 시각장애인 사용성 평가는 아직 하지 않음']}],
   tech:['Gemma 4','Ollama','MediaPipe','Apple Vision','Swift','JavaScript','Web Speech API','Cloudflare Workers','Workers AI','Bun']},
  {id:'whatisthis', when:'2026.11 ~ 2026.12', kind:'개인 프로젝트', org:'우송대학교',
-  title:'MediaPipe·PaddleOCR·DINOv2로 손끝이 가리킨 음료를 읽어 주는 모바일 웹 개발', alias:'What Is This?', mock:witMock, cap:'화면을 단순화해 다시 그린 예시',
+  title:'MediaPipe·PaddleOCR·DINOv2로 손끝이 가리킨 음료를 읽어 주는 모바일 웹 개발', alias:'What Is This?', mock:witMock, cap:'실제 웹 화면의 구성과 안내 문구를 그대로 옮겨 다시 그린 동작 예시 · 진열대와 음료는 그림 · 결과 문장 “펩시 제로 라임.”은 저장소 README의 실제 인식 사례',
   link:{href:'https://what-is-this-drinks.dchkimppi.workers.dev', label:'직접 써 보기', note:'휴대폰에서 열면 바로 써 볼 수 있습니다 · 비밀번호가 필요합니다'},
-  lead:'편의점 냉장고 앞에서 검지로 음료 하나를 가리키면 제품명과 일반·제로 여부를 한국어 음성으로 알려 주는 모바일 웹입니다. 작은 글씨를 읽기 어려운 시각장애인을 위해 만들었고, 카메라 영상은 모두 휴대폰 브라우저 안에서 분석합니다.',
+  lead:'편의점 냉장고 앞에서 검지로 음료 하나를 가리키면 제품명과 일반·제로 여부를 한국어 음성으로 알려 주는 모바일 웹입니다. CU 홈페이지의 음료 목록을 크롤링해 두고, 가리킨 라벨을 OCR로 읽어 그 목록과 대조해 어떤 음료인지 찾습니다. 작은 글씨를 읽기 어려운 시각장애인을 위해 만들었고, 카메라 영상은 모두 휴대폰 브라우저 안에서 분석합니다.',
   role:'1인 개발 (기획, 상품 자료 수집, 화면, 모델 연동, 테스트, 배포)', env:'모바일 브라우저(후면 카메라), Cloudflare Workers, Node.js 22', lang:'JavaScript, Python, Shell',
   did:['MediaPipe 손 인식으로 검지가 펴졌는지와 손끝 방향을 계산해, 같은 화면에서 손끝 바로 위 라벨만 고르도록 구현(화면 밖 손끝은 무시)',
        'PaddleOCR PP-OCRv5 모바일 모델과 한국어 인식 모델을 ONNX Runtime Web으로 브라우저에서 돌려 한글·영문 제품명 판독',
@@ -638,7 +763,8 @@ const projects = [
   tech:['MediaPipe','PaddleOCR','DINOv2','ONNX Runtime Web','ZXing','Web Speech API','Cloudflare Workers','Playwright']},
  {id:'cdd', when:'2026.11 ~ 2026.12', kind:'인턴십', org:'지란지교 1연구소 AI연구팀',
   title:'공공데이터포털 실제 문서 샘플 수집기 개발', alias:'Crawling-Document-Data (CDD)',
-  shot:{src:'assets/cdd-webui.webp', w:1280, h:1240, cap:'실제 수집기 화면 · 누르면 크게 볼 수 있습니다',
+  mock:cddMock, cap:'실제 웹 화면을 줄여 다시 그린 동작 예시 · 파일 목록과 진행 기록 형식은 실제 수집 결과·프로그램 출력 그대로',
+  shot:{src:'assets/cdd-webui.webp', w:1280, h:1240, cap:'실제 수집기 화면(11-25 버전) · 누르면 크게 볼 수 있습니다',
     alt:'CDD 웹 화면. 왼쪽에서 받을 형식과 모을 개수를 고르고, 오른쪽에 모은 공공문서 목록이 제공기관·출처·크기와 함께 나옴'},
   lead:'받을 형식을 하나 고르면 공공데이터포털과 연결된 기관 사이트에서 그 형식의 실제 공공문서를 정해진 개수만큼 모으고, 파일 내용으로 형식을 확인해 출처 기록과 함께 저장하는 수집기입니다. 문서 변환·비식별 도구를 시험할 실제 문서를 얻으려고 만들었고, 터미널 없이 웹 화면에서 씁니다.',
   role:'기획, 사이트 구조 조사, 수집기·웹 화면 개발, 테스트, 배포', env:'macOS, Windows, GitHub Actions, Claude Code', lang:'Python, JavaScript, HTML, CSS',
@@ -701,7 +827,7 @@ document.getElementById('list').innerHTML = shown.map(p=>`
     </div>
     <figure>${p.sheet
       ? `<button class="sheet" data-src="assets/sheet-${p.sheet}.webp" aria-label="${p.alias} 프로젝트 시트 크게 보기"><img src="assets/sheet-${p.sheet}.webp" width="964" height="1374" alt="${p.alias} 실행 화면과 개발 내용을 정리한 프로젝트 시트" loading="lazy"></button><figcaption>누르면 실행 화면을 크게 볼 수 있습니다</figcaption>`
-      : `${p.video?video(p.video):''}${p.shot?`<div class="${p.video?'fig-gap':''}">${shot(p.shot)}</div>`:''}${p.mock?`${p.mock}<figcaption>${p.cap}</figcaption>`:''}${p.after||''}${p.link?`<a class="try" href="${p.link.href}" target="_blank" rel="noopener">${p.link.label}<span class="sr"> (새 창)</span></a><p class="try-note">${p.link.note}</p>`:''}`}</figure>
+      : `${p.video?video(p.video):''}${p.mock?`${p.mock}<figcaption>${p.cap}</figcaption>`:''}${p.shot?`<div class="${p.video||p.mock?'fig-gap':''}">${shot(p.shot)}</div>`:''}${p.after||''}${p.link?`<a class="try" href="${p.link.href}" target="_blank" rel="noopener">${p.link.label}<span class="sr"> (새 창)</span></a><p class="try-note">${p.link.note}</p>`:''}`}</figure>
   </div>
 </article>`).join('');
 
@@ -751,6 +877,50 @@ if(consoleBox){
     };
     play();
   }
+}
+
+
+// What Is This?·CDD 동작 예시: 단계(data-step)를 바꾸고 CSS가 화면을 그린다
+function stepper(el, steps, onStep){
+  if(!el) return;
+  if(reduceMotion){ el.dataset.step = steps.length-1; onStep(steps.length-1, true); return; }
+  let i = 0;
+  const run = ()=>{ el.dataset.step = i; onStep(i, false); setTimeout(run, steps[i]); i = (i+1) % steps.length; };
+  new IntersectionObserver((es, o)=>{ if(es[0].isIntersecting){ o.disconnect(); run(); } }, {threshold:.3}).observe(el);
+}
+const witBox = document.querySelector('.wit');
+if(witBox){
+  const st = witBox.querySelector('.w-status'), btn = witBox.querySelector('.w-btn'), model = witBox.querySelector('.w-model');
+  const S = [
+    ['카메라를 켜면 시작해요.','카메라 켜기',''],
+    ['준비됐어요. 한 병의 이름 바로 아래를 가리키고 잠시 멈춰 주세요.','지금 읽기','MediaPipe 손 인식'],
+    ['준비됐어요. 한 병의 이름 바로 아래를 가리키고 잠시 멈춰 주세요.','지금 읽기','MediaPipe · 검지 방향'],
+    ['가리킨 라벨을 읽고 있어요…','지금 읽기','PaddleOCR · 라벨 글자'],
+    ['“펩시 제로 라임.”','지금 읽기','음성 안내']];
+  stepper(witBox, [1800, 1700, 2400, 2000, 3400], (i, still)=>{
+    st.textContent = S[i][0]; btn.textContent = S[i][1]; model.textContent = S[i][2];
+    if(i===0 && !still) setTimeout(()=>{ btn.classList.add('press'); setTimeout(()=>btn.classList.remove('press'), 180); }, 1300);
+  });
+}
+const cddBox = document.querySelector('.cdd');
+if(cddBox){
+  const table = cddBox.querySelector('.k-table'), log = cddBox.querySelector('.k-log'), cnt = cddBox.querySelector('.k-count b'), bar = cddBox.querySelector('.k-bar span');
+  const reset = ()=>{ table.querySelectorAll('.k-row').forEach(r=>r.remove()); log.innerHTML=''; cnt.textContent='0'; bar.style.setProperty('--w','0%'); };
+  const row = r=>{ const d=document.createElement('div'); d.className='k-row'; d.innerHTML=r.map(c=>`<span>${c}</span>`).join(''); table.append(d); };
+  const line = (t, c)=>{ const p=document.createElement('p'); p.textContent=t; if(c) p.className=c; log.append(p); while(log.children.length>4) log.firstChild.remove(); };
+  const tick = n=>{ cnt.textContent = n; bar.style.setProperty('--w', n/20*100+'%'); };
+  stepper(cddBox, [1300, 1100, 900, 5600, 3200], (i, still)=>{
+    if(i===0) reset();
+    if(i===3 || (still && i===4)){
+      reset();
+      const rows = CDD_ROWS.slice(), logs = CDD_LOG.slice();
+      const show = k=>{ const [n,t,kind,add]=logs[k]; line(`[${n}/20] ${t} (${kind}) +${add}`); tick(n);
+        const take = k===0?3:k<3?1:1; for(let j=0;j<take && rows.length;j++) row(rows.shift()); };
+      if(still){ logs.forEach((_,k)=>show(k)); }
+      else logs.forEach((_,k)=>setTimeout(()=>show(k), 300 + k*1050));
+    }
+    if(i===4) line('포털에서 20개를 모았어요. 저장 위치: ~/Documents/CDD/samples', 'ok');
+  });
 }
 
 const viewer = document.getElementById('viewer');
