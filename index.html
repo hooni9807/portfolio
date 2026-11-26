@@ -122,7 +122,7 @@ figcaption{margin-top:.6rem;font-size:.8125rem;color:var(--muted)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 /* 검은 막대가 왼쪽에서 오른쪽으로 하나씩 덮는다(--d: 순서별 지연) */
 .doc .pii{padding:0 .12em;border-radius:2px;
-  background:linear-gradient(var(--ink),var(--ink)) no-repeat 0 0/0% 100%,linear-gradient(transparent 55%,var(--marker) 55%);
+  background:linear-gradient(var(--ink),var(--ink)) no-repeat 0 0/0% 100%,linear-gradient(var(--failbg),var(--failbg));color:var(--fail);
   transition:background-size .45s cubic-bezier(.6,0,.2,1) var(--d,0s),color .15s var(--d,0s)}
 .doc.after .pii{background-size:100% 100%,100% 100%;color:transparent}
 .doc.before .v-after,.doc.after .v-before{display:none}
